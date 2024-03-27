@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>currency exchanger</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="MainBlock">
+            <div class="MoneyBlock">
+                <div class="br">
+                    <select class="exchanger ClassSelect" name="exchanger" onchange="updateOutput()">
+                        <option value="rub">RUB</option>
+                        <option value="dol">DOLLAR</option>
+                        <option value="euro">EURO</option>
+                        <option value="mdl">MDL</option>
+                    </select>
+                    <input type="number" class="BorderSelect2" oninput="updateOutput()">
+                </div>
+                <div class="br">
+                    <div class="">
+                        <select class="exchanger2 ClassSelect" name="exchanger" onchange="updateOutput()">
+                            <option value="rub">RUB</option>
+                            <option value="dol">DOLLAR</option>
+                            <option value="euro">EURO</option>
+                            <option value="mdl">MDL</option>
+                        </select>
+                        <textarea class="OutPut">Lorem ipsdddddвыффвыыфв</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="CourseOfMoney"></div>
+    </div>
+
+    <script>
+        
+        function convertCurrency(amount, fromCurrency, toCurrency) {
+    const exchangeRates = {
+        rub: { rub: 1, dol: 0.014, euro: 0.012, mdl: 0.27 },
+        dol: { rub: 70, dol: 1, euro: 0.87, mdl: 21.36 },
+        euro: { rub: 85, dol: 1.15, euro: 1, mdl: 24.65 },
+        mdl: { rub: 17.5, dol: 0.047, euro: 0.041, mdl: 1 }
+    };
+
+    const rateFrom = exchangeRates[fromCurrency][toCurrency];
+    const convertedAmount = amount * rateFrom;
+    return convertedAmount;
+}
+
+        function updateOutput() {
+            const amount = parseFloat(document.querySelector('.BorderSelect2').value);
+            const fromCurrency = document.querySelector('.exchanger').value;
+            const toCurrency = document.querySelector('.exchanger2').value;
+
+            const convertedAmount = convertCurrency(amount, fromCurrency, toCurrency);
+            document.querySelector('.OutPut').value = convertedAmount.toFixed(2);
+        }
+
+        // Вызов функции updateOutput() после загрузки DOM
+        document.addEventListener('DOMContentLoaded', updateOutput);
+    </script>
+</body>
+</html>
